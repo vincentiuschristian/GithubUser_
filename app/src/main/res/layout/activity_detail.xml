@@ -8,7 +8,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivProfileDetail"
@@ -51,6 +51,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="1dp"
                 android:maxLines="1"
                 android:text="@string/bio"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,13 +118,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:tabIndicatorColor="@color/blue"
                 app:tabSelectedTextColor="@color/blue"
                 app:tabTextColor="#A39999" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:contentDescription="@string/tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

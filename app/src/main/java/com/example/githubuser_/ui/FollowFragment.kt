@@ -39,7 +39,7 @@ class FollowFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvItemFollower.layoutManager = layoutManager
-        binding.rvItemFollower.setHasFixedSize(true)
+ //       binding.rvItemFollower.setHasFixedSize(true)
 
         val username = arguments?.getString(ARG_USERNAME).toString()
         val position = arguments?.getInt(ARG_POSITION)
@@ -59,7 +59,9 @@ class FollowFragment : Fragment() {
         followerViewModel.listFollowers.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 setUserData(user)
-            }
+            } /*else {
+                binding.textTest.text = View.VISIBLE.toString()
+            }*/
         }
     }
 
@@ -69,17 +71,25 @@ class FollowFragment : Fragment() {
         }
         followerViewModel.getFollowingData(username)
         followerViewModel.listFollowing.observe(viewLifecycleOwner) { user ->
-            if (user!= null) {
+            if (user != null) {
                 setUserData(user)
-            }
+            } /*else {
+                binding.textTest.text = View.VISIBLE.toString()
+            }*/
         }
     }
 
     private fun setUserData(data: List<ItemsItem>) {
-        val adapter = UserAdapter()
-        adapter.submitList(data)
-        binding.rvItemFollower.adapter = adapter
-
+        if (data.isEmpty()) {
+            binding.textTest.visibility = View.VISIBLE
+            binding.rvItemFollower.visibility = View.INVISIBLE
+        } else {
+            binding.rvItemFollower.visibility = View.VISIBLE
+            binding.textTest.visibility = View.INVISIBLE
+            val adapter = UserAdapter()
+            adapter.submitList(data)
+            binding.rvItemFollower.adapter = adapter
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
