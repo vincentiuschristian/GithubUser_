@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel : ViewModel() {
 
     companion object {
         var username = "KEY_DATA"
@@ -35,27 +35,27 @@ class DetailViewModel: ViewModel() {
     }
 
     private fun getDetailUser() {
-            _isLoading.value = true
-            val client = ApiConfig.getApiService().getDetailUser(username)
-            client.enqueue(object : Callback<DetailUserResponse> {
-                override fun onResponse(
-                    call: Call<DetailUserResponse>,
-                    response: Response<DetailUserResponse>
-                ) {
-                    _isLoading.value = false
-                    if (response.isSuccessful) {
-                        _detailUser.value = response.body()
-                    } else {
-                        Log.e(TAG, "onFailure : ${response.body()}")
-                    }
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getDetailUser(username)
+        client.enqueue(object : Callback<DetailUserResponse> {
+            override fun onResponse(
+                call: Call<DetailUserResponse>,
+                response: Response<DetailUserResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _detailUser.value = response.body()
+                } else {
+                    Log.e(TAG, "onFailure : ${response.body()}")
                 }
+            }
 
-                override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
-                    _isLoading.value = false
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-            })
-        }
+            override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
 
     fun getFollowersData(username: String) {
         _isLoading.value = true
@@ -79,10 +79,8 @@ class DetailViewModel: ViewModel() {
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
-
         })
     }
-
 
     fun getFollowingData(username: String) {
         _isLoading.value = true
@@ -106,8 +104,7 @@ class DetailViewModel: ViewModel() {
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
                 Log.d(TAG, "onFailure: ${t.message}")
             }
-
         })
     }
 
-    }
+}

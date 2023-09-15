@@ -1,9 +1,32 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <!-- Base application theme. -->
     <style name="Base.Theme.GithubUser_" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorOnPrimary">@color/light_background</item>
+        <item name="colorPrimaryVariant">@color/light_background</item>
+        <item name="colorPrimaryContainer">@color/pale_pink</item>
     </style>
 
     <style name="Theme.GithubUser_" parent="Base.Theme.GithubUser_" />
+
+    <style name="TextContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
+
+    <style name="TextContent.title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextContent.HeadlineSmall">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextContent.Info">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
 </resources>

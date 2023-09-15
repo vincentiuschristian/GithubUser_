@@ -40,7 +40,7 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _dataUser.value = responseBody?.items as List<ItemsItem>?
                 } else {
-                    Log.e(TAG, "onFailure: ${responseBody.toString()}")
+                    Log.e(TAG, "onFailure: ${response.body()}")
                 }
             }
 

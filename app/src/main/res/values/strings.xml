@@ -1,21 +1,29 @@
 <resources>
-    <string name="app_name">GithubUser_</string>
+    <string name="app_name">GithubUser</string>
     <string name="search_username">Search username</string>
-    <string name="name">Name</string>
+    <string name="name">name</string>
     <string name="title_activity_detail">DetailActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="string_first_fragment">First Fragment</string>
+    <string name="string_label_fragment">First Fragment</string>
+    <string name="string_second_fragment">Second Fragment</string>
+    <string name="string_second_labelt">Second Fragment</string>
     <string name="next">Next</string>
     <string name="username">username</string>
     <string name="_500_follower">500 Follower</string>
     <string name="_500_following">500 Following</string>
     <string name="tabLayout">tabLayout</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail_user">Detail</string>
     <string name="tab_text1">Follower</string>
     <string name="tab_text2">Following</string>
     <string name="imageprofile">imageProfile</string>
-    <string name="followers">Followers: %1$s</string>
-    <string name="following">Following: %1$s</string>
+    <string name="followers">%1$s followers</string>
+    <string name="following">%1$s following</string>
+    <string name="dot">•</string>
+    <string name="iconprofile">iconProfile</string>
+    <string name="user_not_found">User not Found!</string>
+    <string name="there_is_no_data">there is no following or follower</string>
+    <string name="bio">bio</string>
+    <string name="scrollview">scrollView</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,10 +1,10 @@
 package com.example.githubuser_.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuser_.R
@@ -20,8 +20,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
 
-    companion object{
-        const val KEY_DATA  = "key_data"
+    companion object {
+        const val KEY_DATA = "key_data"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -38,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = resources.getString(R.string.detail_user)
 
         val sectionPagerAdapter = SectionPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
@@ -47,16 +48,18 @@ class DetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-
         username = intent.getStringExtra(KEY_DATA).toString()
 
-        detailViewModel.detailUser.observe(this){ data ->
-            if (data != null){
+        detailViewModel.detailUser.observe(this) { data ->
+            if (data != null) {
                 binding.apply {
                     tvUsernameDetail.text = data.login
                     tvName.text = data.name
-                    tvFollowerDetail.text = resources.getString(R.string.followers, data.followers.toString())
-                    tvFollowingDetail.text = resources.getString(R.string.following, data.following.toString())
+                    tvBio.text = data.bio
+                    tvFollowerDetail.text =
+                        resources.getString(R.string.followers, data.followers.toString())
+                    tvFollowingDetail.text =
+                        resources.getString(R.string.following, data.following.toString())
                     Glide.with(root.context)
                         .load(data.avatarUrl)
                         .into(ivProfileDetail)
@@ -64,7 +67,7 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        detailViewModel.isLoading.observe(this){
+        detailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
     }

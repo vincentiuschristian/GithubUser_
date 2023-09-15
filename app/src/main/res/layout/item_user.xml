@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_margin="4dp"
     app:cardCornerRadius="12dp"
-    app:strokeColor="#1A000000"
+    app:strokeColor="#34757575"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +14,8 @@
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_oval="true"
             android:id="@+id/ivImageProfile"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:layout_margin="8dp"
             android:src="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,11 +24,9 @@
 
         <TextView
             android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:layout_marginStart="16dp"
             android:text="@string/name"
+            style="@style/TextContent.Info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivImageProfile"
             app:layout_constraintTop_toTopOf="parent" />

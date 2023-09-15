@@ -1,7 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.GithubUser_" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/dark_background</item>
+        <item name="colorOnPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/dark_background</item>
+        <item name="colorPrimaryContainer">@color/pale_pink</item>
     </style>
 </resources>

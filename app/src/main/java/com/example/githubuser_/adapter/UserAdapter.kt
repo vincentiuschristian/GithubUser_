@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuser_.databinding.ItemUserBinding
-import com.example.githubuser_.response.DetailUserResponse
 import com.example.githubuser_.response.ItemsItem
 import com.example.githubuser_.ui.DetailActivity
 
 class UserAdapter : ListAdapter<ItemsItem, UserAdapter.UserViewHolder>(DIFF_CALLBACK) {
 
-
-    class UserViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
+    class UserViewHolder(private val binding: ItemUserBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: ItemsItem) {
             binding.tvUsername.text = data.login
             Glide.with(binding.root)
                 .load(data.avatarUrl)
                 .into(binding.ivImageProfile)
+                .clearOnDetach()
 
         }
 
