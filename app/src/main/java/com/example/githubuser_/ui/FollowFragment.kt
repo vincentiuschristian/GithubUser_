@@ -33,13 +33,17 @@ class FollowFragment : Fragment() {
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return _binding.root
     }
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvItemFollower.layoutManager = layoutManager
- //       binding.rvItemFollower.setHasFixedSize(true)
+        binding.rvItemFollower.setHasFixedSize(true)
 
         val username = arguments?.getString(ARG_USERNAME).toString()
         val position = arguments?.getInt(ARG_POSITION)
@@ -59,9 +63,7 @@ class FollowFragment : Fragment() {
         followerViewModel.listFollowers.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 setUserData(user)
-            } /*else {
-                binding.textTest.text = View.VISIBLE.toString()
-            }*/
+            }
         }
     }
 
@@ -73,9 +75,7 @@ class FollowFragment : Fragment() {
         followerViewModel.listFollowing.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 setUserData(user)
-            } /*else {
-                binding.textTest.text = View.VISIBLE.toString()
-            }*/
+            }
         }
     }
 
