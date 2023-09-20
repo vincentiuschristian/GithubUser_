@@ -1,7 +1,10 @@
 package com.example.githubuser_.ui
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,18 +40,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         with(binding) {
+           // searchBar.inflateMenu(R.menu.menu_item)
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
                 .setOnEditorActionListener { _, _, _ ->
                     searchBar.text = searchView.text
                     searchView.hide()
-
                     mainViewModel.getDataUser(searchView.text.toString())
                     false
                 }
         }
-
     }
 
     private fun setUserData(data: List<ItemsItem>?) {
@@ -66,6 +68,28 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        R.id.menu_favorite -> {
+            val intentFavorite = Intent(this@MainActivity, FavoriteActivity::class.java)
+            startActivity(intentFavorite)
+            true
+        }
+        R.id.menu_setting -> {
+            val intentSetting = Intent(this@MainActivity, SettingActivity::class.java)
+            startActivity(intentSetting)
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+
     }
 
 }

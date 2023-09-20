@@ -10,5 +10,6 @@
     <color name="imageblankcolor">#0C00130F</color>
     <color name="text">#B9B4C7</color>
     <color name="colorSubtitle">#757575</color>
+    <color name="colorTextTab">#A39999</color>
 
 </resources>

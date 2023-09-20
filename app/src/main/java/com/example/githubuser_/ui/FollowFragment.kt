@@ -10,15 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser_.adapter.UserAdapter
 import com.example.githubuser_.databinding.FragmentFollowBinding
 import com.example.githubuser_.response.ItemsItem
-import com.example.githubuser_.viewModel.DetailViewModel
 import com.example.githubuser_.viewModel.DetailViewModel.Companion.username
+import com.example.githubuser_.viewModel.FollowViewModel
 
 class FollowFragment : Fragment() {
 
     private lateinit var _binding: FragmentFollowBinding
     private val binding get() = _binding
 
-    private val followerViewModel: DetailViewModel by viewModels()
+    private val followerViewModel: FollowViewModel by viewModels()
 
     companion object {
         const val ARG_USERNAME = "username"
@@ -45,7 +45,7 @@ class FollowFragment : Fragment() {
         binding.rvItemFollower.layoutManager = layoutManager
         binding.rvItemFollower.setHasFixedSize(true)
 
-        val username = arguments?.getString(ARG_USERNAME).toString()
+      //  val username = arguments?.getString(ARG_USERNAME).toString()
         val position = arguments?.getInt(ARG_POSITION)
 
         if (position == 1) {
