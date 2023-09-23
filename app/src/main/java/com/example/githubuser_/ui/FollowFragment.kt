@@ -20,10 +20,6 @@ class FollowFragment : Fragment() {
 
     private val followerViewModel: FollowViewModel by viewModels()
 
-    companion object {
-        const val ARG_POSITION = "section_number"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +28,7 @@ class FollowFragment : Fragment() {
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return _binding.root
     }
+
     override fun onResume() {
         super.onResume()
         binding.root.requestLayout()
@@ -79,8 +76,8 @@ class FollowFragment : Fragment() {
 
     private fun setUserData(data: List<ItemsItem>) {
         if (data.isEmpty()) {
-            binding.textTest.visibility = View.VISIBLE
             binding.rvItemFollower.visibility = View.INVISIBLE
+            binding.textTest.visibility = View.VISIBLE
         } else {
             binding.rvItemFollower.visibility = View.VISIBLE
             binding.textTest.visibility = View.INVISIBLE
@@ -92,6 +89,10 @@ class FollowFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+    }
+
+    companion object {
+        const val ARG_POSITION = "section_number"
     }
 
 }

@@ -7,7 +7,6 @@ import com.example.githubuser_.di.AppExecutors
 
 class FavoriteRepository private constructor(
     private val favoriteDao: FavoriteDao,
-    //private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
     private val executorService: AppExecutors
 ) {
 
@@ -33,7 +32,7 @@ class FavoriteRepository private constructor(
         private var instance: FavoriteRepository? = null
         fun getInstance(
             favoriteDao: FavoriteDao,
-            appExecutors: com.example.githubuser_.di.AppExecutors
+            appExecutors: AppExecutors
         ): FavoriteRepository =
             instance ?: synchronized(this) {
                 instance ?: FavoriteRepository(favoriteDao, appExecutors)

@@ -8,17 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser_.R
 import com.example.githubuser_.adapter.UserAdapter
 import com.example.githubuser_.databinding.ActivityMainBinding
 import com.example.githubuser_.response.ItemsItem
-import com.example.githubuser_.setting_preference.SettingPreference
-import com.example.githubuser_.setting_preference.SettingViewModel
-import com.example.githubuser_.setting_preference.SettingViewModelFactory
-import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -33,20 +27,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val pref = SettingPreference.getInstance(application.dataStore)
-        val settingViewModel = ViewModelProvider(
-            this,
-            SettingViewModelFactory(pref)
-        )[SettingViewModel::class.java]
-
-        settingViewModel.getThemeSetting().observe(this) { isDarkMode ->
-            if (isDarkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvItem.layoutManager = layoutManager
         binding.rvItem.setHasFixedSize(true)
@@ -60,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         with(binding) {
-            // searchBar.inflateMenu(R.menu.menu_item)
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
@@ -74,15 +53,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUserData(data: List<ItemsItem>?) {
-        if (data!!.isEmpty()) {
-            binding.tvUserNotFound.visibility = View.VISIBLE
-            binding.rvItem.visibility = View.INVISIBLE
-        } else {
-            binding.rvItem.visibility = View.VISIBLE
-            val adapter = UserAdapter()
-            adapter.submitList(data)
-            binding.rvItem.adapter = adapter
-            binding.tvUserNotFound.visibility = View.INVISIBLE
+        if (data != null) {
+            if (data.isEmpty()) {
+                binding.tvUserNotFound.visibility = View.VISIBLE
+                binding.rvItem.visibility = View.INVISIBLE
+            } else {
+                binding.rvItem.visibility = View.VISIBLE
+                val adapter = UserAdapter()
+                adapter.submitList(data)
+                binding.rvItem.adapter = adapter
+                binding.tvUserNotFound.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -111,7 +92,6 @@ class MainActivity : AppCompatActivity() {
         else -> {
             super.onOptionsItemSelected(item)
         }
-
     }
 
 }

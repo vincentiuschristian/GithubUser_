@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GithubUser</string>
+    <string name="search_username">Cari pengguna</string>
+    <string name="name">nama</string>
+    <string name="username">nama pengguna</string>
+    <string name="followers">%1$s pengikut</string>
+    <string name="following">%1$s mengikuti</string>
+    <string name="user_not_found">Pengguna tidak ditemukan!</string>
+    <string name="there_is_no_data">Tidak ada mengikuti atau pengikut</string>
+    <string name="settings">Pengaturan</string>
+    <string name="favorite">favorit</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="light_mode">Mode Terang</string>
+    <string name="tidak_ada_favorite">Tidak ada pengguna favorit</string>
+    <string name="favorite_button">tombol favorit</string>
+    <string name="delete_favorite">hapus favorit</string>
+    <string name="github_user">Pengguna Github</string>
+    <string name="theme">Tema</string>
+</resources>

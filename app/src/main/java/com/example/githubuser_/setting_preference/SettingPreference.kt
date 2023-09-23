@@ -20,15 +20,13 @@ class SettingPreference private constructor(private val dataStore: DataStore<Pre
         }
     }
 
-    suspend fun saveThemeSetting(isDarkModActive: Boolean){
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean){
         dataStore.edit { preference ->
-            preference[THEME_KEY] = isDarkModActive
+            preference[THEME_KEY] = isDarkModeActive
         }
     }
 
     companion object {
-        //  Volatile adalah keyword yang digunakan supaya nilai pada
-        //  suatu variabel tidak dimasukkan ke dalam cache
         @Volatile
         private var INSTANCE: SettingPreference? = null
 

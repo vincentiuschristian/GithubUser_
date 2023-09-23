@@ -35,6 +35,7 @@ class FavoriteActivity : AppCompatActivity() {
         favoriteAdapter = FavoriteAdapter(this)
         binding?.rvItemFavorite?.layoutManager = LinearLayoutManager(this)
         binding?.rvItemFavorite?.adapter = favoriteAdapter
+
     }
 
     override fun onResume() {
@@ -44,12 +45,13 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun showDataFavorite() {
         favoriteViewModel.getFavoriteUser().observe(this) { users ->
-            if (users != null){
-                loading(false)
+            if (users.isEmpty()) {
+                binding?.rvItemFavorite?.visibility = View.INVISIBLE
+                binding?.tvTidakAdaFavorite?.visibility = View.VISIBLE
+            } else {
+                binding?.rvItemFavorite?.visibility = View.VISIBLE
                 binding?.tvTidakAdaFavorite?.visibility = View.GONE
                 favoriteAdapter.submitList(users)
-            } else {
-                loading(true)
             }
         }
     }
@@ -57,9 +59,5 @@ class FavoriteActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    private fun loading(isLoading: Boolean) {
-        binding?.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

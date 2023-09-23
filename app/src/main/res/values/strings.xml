@@ -2,35 +2,37 @@
     <string name="app_name">GithubUser</string>
     <string name="search_username">Search username</string>
     <string name="name">name</string>
-    <string name="title_activity_detail">DetailActivity</string>
-    <string name="string_first_fragment">First Fragment</string>
-    <string name="string_label_fragment">First Fragment</string>
-    <string name="string_second_fragment">Second Fragment</string>
-    <string name="string_second_labelt">Second Fragment</string>
-    <string name="next">Next</string>
+    <string name="title_activity_detail" translatable="false">DetailActivity</string>
+    <string name="string_first_fragment" translatable="false">First Fragment</string>
+    <string name="string_label_fragment" translatable="false">First Fragment</string>
+    <string name="string_second_fragment" translatable="false">Second Fragment</string>
+    <string name="string_second_labelt" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
     <string name="username">username</string>
-    <string name="_500_follower">500 Follower</string>
-    <string name="_500_following">500 Following</string>
-    <string name="tabLayout">tabLayout</string>
-    <string name="detail_user">Detail</string>
-    <string name="favorite_user">Favorite User</string>
-    <string name="tab_text1">Follower</string>
-    <string name="tab_text2">Following</string>
-    <string name="imageprofile">imageProfile</string>
+    <string name="_500_follower" translatable="false">500 Follower</string>
+    <string name="_500_following" translatable="false">500 Following</string>
+    <string name="tabLayout" translatable="false">tabLayout</string>
+    <string name="detail_user" translatable="false">Detail</string>
+    <string name="favorite_user" translatable="false">Favorite User</string>
+    <string name="tab_text1" translatable="false">Follower</string>
+    <string name="tab_text2" translatable="false">Following</string>
+    <string name="imageprofile" translatable="false">imageProfile</string>
     <string name="followers">%1$s followers</string>
     <string name="following">%1$s following</string>
-    <string name="dot">•</string>
-    <string name="iconprofile">iconProfile</string>
+    <string name="dot" translatable="false">•</string>
+    <string name="iconprofile" translatable="false">iconProfile</string>
     <string name="user_not_found">User not Found!</string>
-    <string name="there_is_no_data">there is no following or follower</string>
-    <string name="bio">bio</string>
-    <string name="scrollview">scrollView</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="there_is_no_data">there is no follower or following</string>
+    <string name="bio" translatable="false">bio</string>
+    <string name="scrollview" translatable="false">scrollView</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="settings">Setting</string>
     <string name="favorite">Favorite</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="tidak_ada_favorite">Tidak Ada Favorite</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="tidak_ada_favorite">No Favorite User</string>
     <string name="favorite_button">Favorite Button</string>
     <string name="delete_favorite">Delete Favorite</string>
     <string name="github_user">Github User</string>
+    <string name="theme">Theme</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.example.githubuser_.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -25,12 +28,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
-    private val favoriteViewModel: FavoriteViewModel by viewModels{
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
         ViewModelFactory.getInstance(applicationContext)
     }
     private lateinit var database: FavoriteDao
 
- //   private var username = ""
+    //   private var username = ""
     private var avatar = ""
 
     companion object {
@@ -62,10 +65,6 @@ class DetailActivity : AppCompatActivity() {
         }.attach()
 
         username = intent.getStringExtra(KEY_DATA).toString()
-
-        database = FavoriteDatabase.getDatabase(applicationContext).favoriteDao()
-        val isFavoriteUser = database.isFavorite(username)
-        favoriteIcon(isFavoriteUser)
 
         detailViewModel.detailUser.observe(this) { data ->
             avatar = data.avatarUrl.toString()
@@ -107,6 +106,40 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        isFavorite()
+    }
+
+    private fun isFavorite() {
+        database = FavoriteDatabase.getDatabase(applicationContext).favoriteDao()
+        val isFavoriteUser = database.isFavorite(username)
+        favoriteIcon(isFavoriteUser)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_favorite -> {
+            val intentFavorite = Intent(this@DetailActivity, FavoriteActivity::class.java)
+            startActivity(intentFavorite)
+            true
+        }
+
+        R.id.menu_setting -> {
+            val intentSetting = Intent(this@DetailActivity, SettingActivity::class.java)
+            startActivity(intentSetting)
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun favoriteIcon(favorite: Boolean) {
         binding.fabFavorite.setImageDrawable(
             if (favorite) {
@@ -114,7 +147,7 @@ class DetailActivity : AppCompatActivity() {
                     applicationContext,
                     R.drawable.baseline_favorite_24
                 )
-            }else {
+            } else {
                 ContextCompat.getDrawable(
                     applicationContext,
                     R.drawable.baseline_favorite_border_24
@@ -123,10 +156,8 @@ class DetailActivity : AppCompatActivity() {
         )
     }
 
-
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
-
 
 }

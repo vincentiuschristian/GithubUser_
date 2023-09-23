@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,6 @@ import com.example.githubuser_.database.FavoriteDao
 import com.example.githubuser_.database.FavoriteDatabase
 import com.example.githubuser_.database.UserEntity
 import com.example.githubuser_.databinding.ItemUserBinding
-import com.example.githubuser_.helper.FavoriteDiffCallback
 import com.example.githubuser_.ui.DetailActivity
 
 class FavoriteAdapter(
@@ -23,14 +23,14 @@ class FavoriteAdapter(
     ListAdapter<UserEntity, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var database: FavoriteDao
-    private val listFavorite = ArrayList<UserEntity>()
+/*    private val listFavorite = ArrayList<UserEntity>()
     fun setFavoriteUser(list: List<UserEntity>) {
         val diffCallback = FavoriteDiffCallback(listFavorite, list)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listFavorite.clear()
         this.listFavorite.addAll(list)
         diffResult.dispatchUpdatesTo(this)
-    }
+    }*/
 
     inner class MyViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,10 +40,13 @@ class FavoriteAdapter(
                 Glide.with(itemView.context)
                     .load(favorite.avatarUrl)
                     .into(ivImageProfile)
+                    .clearOnDetach()
                 btnDeleteFavorite.visibility = View.VISIBLE
                 btnDeleteFavorite.setOnClickListener {
                     database = FavoriteDatabase.getDatabase(activity).favoriteDao()
                     database.delete(favorite.username.toString())
+                    Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT).show()
+                  //  setFavoriteUser(database.getAllFavorite() as ArrayList<UserEntity>)
                 }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)

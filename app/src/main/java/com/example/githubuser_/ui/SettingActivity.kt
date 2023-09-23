@@ -34,9 +34,11 @@ class SettingActivity : AppCompatActivity() {
 
         settingViewModel.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
+                binding.tvDarkMod.text = resources.getString(R.string.dark_mode)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 switchTheme.isChecked = true
             } else {
+                binding.tvDarkMod.text = resources.getString(R.string.light_mode)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 switchTheme.isChecked = false
             }
