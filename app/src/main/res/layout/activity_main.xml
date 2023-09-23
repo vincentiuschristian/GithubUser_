@@ -57,7 +57,7 @@
     <TextView
         android:id="@+id/tvUserNotFound"
         style="@style/TextContent.Info"
-        tools:text="@string/user_not_found"
+        android:text="@string/user_not_found"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

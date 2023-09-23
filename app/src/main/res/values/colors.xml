@@ -12,4 +12,6 @@
     <color name="colorSubtitle">#757575</color>
     <color name="colorTextTab">#A39999</color>
     <color name="placeholder">#6FB6B6B6</color>
+    <color name="tabselectedcolor">#3282B8</color>
+    <color name="coloricon">#1B262C</color>
 </resources>

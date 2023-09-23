@@ -109,7 +109,6 @@
                 <TextView
                     android:id="@+id/tvFollowerDetail"
                     style="@style/TextContent.Info"
-                    android:textColor="@color/colorSubtitle"
                     tools:text="@string/_500_follower" />
 
                 <TextView
@@ -121,7 +120,6 @@
                 <TextView
                     android:id="@+id/tvFollowingDetail"
                     style="@style/TextContent.Info"
-                    android:textColor="@color/colorSubtitle"
                     tools:text="@string/_500_following" />
 
             </LinearLayout>
@@ -136,7 +134,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 app:tabGravity="fill"
                 app:tabIndicatorAnimationMode="elastic"
-                app:tabIndicatorColor="@color/blue"
+                app:tabIndicatorColor="@color/tabselectedcolor"
                 app:tabSelectedTextColor="@color/blue"
                 app:tabTextColor="@color/colorTextTab" />
 
