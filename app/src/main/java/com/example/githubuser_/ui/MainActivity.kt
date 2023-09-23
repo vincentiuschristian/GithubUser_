@@ -8,11 +8,17 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser_.R
 import com.example.githubuser_.adapter.UserAdapter
 import com.example.githubuser_.databinding.ActivityMainBinding
 import com.example.githubuser_.response.ItemsItem
+import com.example.githubuser_.setting_preference.SettingPreference
+import com.example.githubuser_.setting_preference.SettingViewModel
+import com.example.githubuser_.setting_preference.SettingViewModelFactory
+import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +30,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val pref = SettingPreference.getInstance(application.dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            SettingViewModelFactory(pref)
+        )[SettingViewModel::class.java]
+
+        settingViewModel.getThemeSetting().observe(this) { isDarkMode ->
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvItem.layoutManager = layoutManager
+        binding.rvItem.setHasFixedSize(true)
 
         mainViewModel.dataUser.observe(this) { data ->
             setUserData(data)
@@ -40,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         with(binding) {
-           // searchBar.inflateMenu(R.menu.menu_item)
+            // searchBar.inflateMenu(R.menu.menu_item)
             searchView.setupWithSearchBar(searchBar)
             searchView
                 .editText
@@ -75,17 +95,19 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favorite -> {
             val intentFavorite = Intent(this@MainActivity, FavoriteActivity::class.java)
             startActivity(intentFavorite)
             true
         }
+
         R.id.menu_setting -> {
             val intentSetting = Intent(this@MainActivity, SettingActivity::class.java)
             startActivity(intentSetting)
             true
         }
+
         else -> {
             super.onOptionsItemSelected(item)
         }

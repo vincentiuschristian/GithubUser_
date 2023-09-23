@@ -5,6 +5,6 @@
         <item name="colorPrimary">@color/dark_background</item>
         <item name="colorOnPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/dark_background</item>
-        <item name="colorPrimaryContainer">@color/pale_pink</item>
+        <!--<item name="colorPrimaryContainer">@color/pale_pink</item>-->
     </style>
 </resources>

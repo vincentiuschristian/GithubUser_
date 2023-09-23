@@ -21,7 +21,6 @@ class FollowFragment : Fragment() {
     private val followerViewModel: FollowViewModel by viewModels()
 
     companion object {
-        const val ARG_USERNAME = "username"
         const val ARG_POSITION = "section_number"
     }
 
@@ -45,7 +44,6 @@ class FollowFragment : Fragment() {
         binding.rvItemFollower.layoutManager = layoutManager
         binding.rvItemFollower.setHasFixedSize(true)
 
-      //  val username = arguments?.getString(ARG_USERNAME).toString()
         val position = arguments?.getInt(ARG_POSITION)
 
         if (position == 1) {

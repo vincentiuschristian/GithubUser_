@@ -18,7 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "TOKEN_GITHUB", "\"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\"")
+        buildConfigField("String", "TOKEN_GITHUB", "\"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\"")
     }
 
     buildFeatures{
@@ -78,4 +78,9 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.2")
     implementation ("androidx.room:room-runtime:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
+
+    // setting preference
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }

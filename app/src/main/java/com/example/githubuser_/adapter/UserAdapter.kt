@@ -22,9 +22,7 @@ class UserAdapter : ListAdapter<ItemsItem, UserAdapter.UserViewHolder>(DIFF_CALL
                 .load(data.avatarUrl)
                 .into(binding.ivImageProfile)
                 .clearOnDetach()
-
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

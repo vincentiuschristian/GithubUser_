@@ -5,13 +5,19 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuser_.R
 import com.example.githubuser_.adapter.SectionPagerAdapter
+import com.example.githubuser_.database.FavoriteDao
+import com.example.githubuser_.database.FavoriteDatabase
+import com.example.githubuser_.database.UserEntity
 import com.example.githubuser_.databinding.ActivityDetailBinding
 import com.example.githubuser_.viewModel.DetailViewModel
 import com.example.githubuser_.viewModel.DetailViewModel.Companion.username
+import com.example.githubuser_.viewModel.FavoriteViewModel
+import com.example.githubuser_.viewModel.ViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,6 +25,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by viewModels{
+        ViewModelFactory.getInstance(applicationContext)
+    }
+    private lateinit var database: FavoriteDao
+
+ //   private var username = ""
+    private var avatar = ""
 
     companion object {
         const val KEY_DATA = "key_data"
@@ -50,7 +63,12 @@ class DetailActivity : AppCompatActivity() {
 
         username = intent.getStringExtra(KEY_DATA).toString()
 
+        database = FavoriteDatabase.getDatabase(applicationContext).favoriteDao()
+        val isFavoriteUser = database.isFavorite(username)
+        favoriteIcon(isFavoriteUser)
+
         detailViewModel.detailUser.observe(this) { data ->
+            avatar = data.avatarUrl.toString()
             if (data != null) {
                 binding.apply {
                     tvUsernameDetail.text = data.login
@@ -70,9 +88,45 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
+
+        binding.fabFavorite.setOnClickListener {
+            val database = FavoriteDatabase.getDatabase(applicationContext).favoriteDao()
+
+            if (!database.isFavorite(username)) {
+                favoriteIcon(true)
+                val newFavorite = UserEntity(
+                    username = username,
+                    avatarUrl = avatar,
+                    isFavorite = true
+                )
+                favoriteViewModel.saveFavorite(newFavorite)
+            } else {
+                favoriteIcon(false)
+                favoriteViewModel.deleteFavorite(username)
+            }
+        }
     }
+
+    private fun favoriteIcon(favorite: Boolean) {
+        binding.fabFavorite.setImageDrawable(
+            if (favorite) {
+                ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.baseline_favorite_24
+                )
+            }else {
+                ContextCompat.getDrawable(
+                    applicationContext,
+                    R.drawable.baseline_favorite_border_24
+                )
+            }
+        )
+    }
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
+
+
 }
