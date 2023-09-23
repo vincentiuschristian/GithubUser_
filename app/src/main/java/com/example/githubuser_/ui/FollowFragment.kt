@@ -81,6 +81,7 @@ class FollowFragment : Fragment() {
         } else {
             binding.rvItemFollower.visibility = View.VISIBLE
             binding.textTest.visibility = View.INVISIBLE
+            showLoading(false)
             val adapter = UserAdapter()
             adapter.submitList(data)
             binding.rvItemFollower.adapter = adapter
