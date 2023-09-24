@@ -22,15 +22,7 @@ class FavoriteAdapter(
 ) :
     ListAdapter<UserEntity, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
-    private lateinit var database: FavoriteDao
-/*    private val listFavorite = ArrayList<UserEntity>()
-    fun setFavoriteUser(list: List<UserEntity>) {
-        val diffCallback = FavoriteDiffCallback(listFavorite, list)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.listFavorite.clear()
-        this.listFavorite.addAll(list)
-        diffResult.dispatchUpdatesTo(this)
-    }*/
+    private lateinit var favoriteDatabase: FavoriteDao
 
     inner class MyViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -43,15 +35,15 @@ class FavoriteAdapter(
                     .clearOnDetach()
                 btnDeleteFavorite.visibility = View.VISIBLE
                 btnDeleteFavorite.setOnClickListener {
-                    database = FavoriteDatabase.getDatabase(activity).favoriteDao()
-                    database.delete(favorite.username.toString())
-                    Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT).show()
-                  //  setFavoriteUser(database.getAllFavorite() as ArrayList<UserEntity>)
+                    favoriteDatabase = FavoriteDatabase.getDatabase(activity).favoriteDao()
+                    favoriteDatabase.delete(favorite.username.toString())
+                    Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 itemView.setOnClickListener {
-                    val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.KEY_DATA, favorite.username)
-                    itemView.context.startActivity(intent)
+                    val intentDetail = Intent(itemView.context, DetailActivity::class.java)
+                    intentDetail.putExtra(DetailActivity.KEY_DATA, favorite.username)
+                    itemView.context.startActivity(intentDetail)
                 }
             }
         }

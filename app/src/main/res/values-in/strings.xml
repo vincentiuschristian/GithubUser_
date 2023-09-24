@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">Github User</string>
     <string name="search_username">Cari pengguna</string>
     <string name="name">nama</string>
     <string name="username">nama pengguna</string>
     <string name="followers">%1$s pengikut</string>
     <string name="following">%1$s mengikuti</string>
+    <string name="repositories">Repositories %1$s</string>
+    <string name="repositoris">Repositories</string>
     <string name="user_not_found">Pengguna tidak ditemukan!</string>
     <string name="there_is_no_data">Tidak ada mengikuti atau pengikut</string>
     <string name="settings">Pengaturan</string>
@@ -17,4 +19,5 @@
     <string name="delete_favorite">hapus favorit</string>
     <string name="github_user">Pengguna Github</string>
     <string name="theme">Tema</string>
+    <string name="share">Bagikan</string>
 </resources>

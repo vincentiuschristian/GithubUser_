@@ -39,7 +39,6 @@ class UserAdapter : ListAdapter<ItemsItem, UserAdapter.UserViewHolder>(DIFF_CALL
             intent.putExtra(DetailActivity.KEY_DATA, dataUser.login)
             holder.itemView.context.startActivity(intent)
         }
-
     }
 
     companion object {

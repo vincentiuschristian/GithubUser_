@@ -12,10 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="16dp"
         android:contentDescription="@string/favorite_button"
         android:src="@drawable/baseline_favorite_border_24"
         tools:ignore="RedundantDescriptionCheck,ImageContrastCheck" />
@@ -28,6 +25,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/share"
+                android:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                android:foregroundTint="@android:color/transparent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/baseline_share_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tabs" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -46,7 +57,6 @@
                 android:id="@+id/ivProfileDetail"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:contentDescription="@string/imageprofile"
                 android:src="@color/imageblankcolor"
@@ -58,9 +68,8 @@
             <TextView
                 android:id="@+id/tvName"
                 style="@style/TextContent.title"
-                android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/name"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ivProfileDetail"
@@ -69,9 +78,8 @@
             <TextView
                 android:id="@+id/tvUsernameDetail"
                 style="@style/TextContent.HeadlineSmall"
-                android:layout_gravity="center"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/username"
                 app:layout_constraintBottom_toBottomOf="@+id/ivProfileDetail"
                 app:layout_constraintStart_toEndOf="@+id/ivProfileDetail" />
@@ -79,7 +87,10 @@
             <TextView
                 android:id="@+id/tvBio"
                 style="@style/TextContent.Info"
-                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:maxLines="1"
                 android:text="@string/bio"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,20 +99,18 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
+                android:gravity="start"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/tabs"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvBio">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
                     android:contentDescription="@string/iconprofile"
                     android:src="@drawable/users" />
@@ -120,18 +129,39 @@
                 <TextView
                     android:id="@+id/tvFollowingDetail"
                     style="@style/TextContent.Info"
+                    android:layout_marginEnd="16dp"
                     tools:text="@string/_500_following" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iconRepo"
+                android:layout_width="20dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/icon_repositories"
+                android:src="@drawable/git_repository"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/tvRepositories"
+                style="@style/TextContent.Info"
+                android:layout_margin="8dp"
+                android:text="@string/repositoris"
+                app:layout_constraintStart_toEndOf="@id/iconRepo"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/tabLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tvRepositories"
                 app:tabGravity="fill"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabIndicatorColor="@color/tabselectedcolor"
@@ -142,8 +172,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabs" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

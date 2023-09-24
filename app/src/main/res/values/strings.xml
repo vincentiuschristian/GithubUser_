@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">Github User</string>
     <string name="search_username">Search username</string>
     <string name="name">name</string>
     <string name="title_activity_detail" translatable="false">DetailActivity</string>
@@ -12,13 +12,15 @@
     <string name="_500_follower" translatable="false">500 Follower</string>
     <string name="_500_following" translatable="false">500 Following</string>
     <string name="tabLayout" translatable="false">tabLayout</string>
-    <string name="detail_user" translatable="false">Detail</string>
+    <string name="detail_user" translatable="false">Detail User</string>
     <string name="favorite_user" translatable="false">Favorite User</string>
     <string name="tab_text1" translatable="false">Follower</string>
     <string name="tab_text2" translatable="false">Following</string>
     <string name="imageprofile" translatable="false">imageProfile</string>
     <string name="followers">%1$s followers</string>
     <string name="following">%1$s following</string>
+    <string name="repositories">Repositories %1$s</string>
+    <string name="repositoris">Repositories</string>
     <string name="dot" translatable="false">•</string>
     <string name="iconprofile" translatable="false">iconProfile</string>
     <string name="user_not_found">User not Found!</string>
@@ -35,4 +37,6 @@
     <string name="delete_favorite">Delete Favorite</string>
     <string name="github_user">Github User</string>
     <string name="theme">Theme</string>
+    <string name="icon_repositories" translatable="false">icon_repositories</string>
+    <string name="share">Share</string>
 </resources>

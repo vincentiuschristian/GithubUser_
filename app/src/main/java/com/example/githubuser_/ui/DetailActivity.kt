@@ -77,6 +77,8 @@ class DetailActivity : AppCompatActivity() {
                         resources.getString(R.string.followers, data.followers.toString())
                     tvFollowingDetail.text =
                         resources.getString(R.string.following, data.following.toString())
+                    tvRepositories.text =
+                        resources.getString(R.string.repositories, data.publicRepos.toString())
                     Glide.with(root.context)
                         .load(data.avatarUrl)
                         .into(ivProfileDetail)
@@ -86,6 +88,17 @@ class DetailActivity : AppCompatActivity() {
 
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
+        }
+
+        binding.fabShare.setOnClickListener {
+            detailViewModel.detailUser.observe(this){
+                val githubUrl = it.htmlUrl.toString()
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(Intent.EXTRA_TEXT, githubUrl)
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "Share to: "))
+            }
         }
 
         binding.fabFavorite.setOnClickListener {

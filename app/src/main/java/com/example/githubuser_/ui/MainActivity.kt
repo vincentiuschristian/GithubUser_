@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar!!.apply {
+            setDisplayShowHomeEnabled(true)
+            setDisplayUseLogoEnabled(true)
+            setLogo(R.drawable.github)
+        }
+
         val layoutManager = LinearLayoutManager(this)
         binding.rvItem.layoutManager = layoutManager
         binding.rvItem.setHasFixedSize(true)

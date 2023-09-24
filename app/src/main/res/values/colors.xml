@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_background">#BDC0D1</color>
-    <color name="dark_background">#EFF0F5</color>
+    <color name="dark_background">#2b3137</color>
     <color name="blue">#308FF9</color>
     <color name="blues">#A6B1E1</color>
     <color name="pale_pink">#F0F0F0</color>
@@ -15,4 +15,6 @@
     <color name="placeholder">#6FB6B6B6</color>
     <color name="tabselectedcolor">#3282B8</color>
     <color name="coloricon">#1B262C</color>
+    <color name="colorCardView">#FAFBFC</color>
+    <color name="stroke">#34757575</color>
 </resources>
