@@ -17,6 +17,7 @@ import com.example.githubuser_.database.FavoriteDao
 import com.example.githubuser_.database.FavoriteDatabase
 import com.example.githubuser_.database.UserEntity
 import com.example.githubuser_.databinding.ActivityDetailBinding
+import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.DetailViewModel
 import com.example.githubuser_.viewModel.DetailViewModel.Companion.username
 import com.example.githubuser_.viewModel.FavoriteViewModel
@@ -29,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModels()
     private val favoriteViewModel: FavoriteViewModel by viewModels {
-        ViewModelFactory.getInstance(applicationContext)
+        ViewModelFactory.getInstance(this, dataStore)
     }
     private lateinit var database: FavoriteDao
 
@@ -91,7 +92,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.fabShare.setOnClickListener {
-            detailViewModel.detailUser.observe(this){
+            detailViewModel.detailUser.observe(this) {
                 val githubUrl = it.htmlUrl.toString()
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
@@ -174,3 +175,4 @@ class DetailActivity : AppCompatActivity() {
     }
 
 }
+

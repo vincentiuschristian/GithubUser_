@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "favorite")
 @Parcelize
-data class UserEntity (
+data class UserEntity(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -23,4 +23,4 @@ data class UserEntity (
     @field:ColumnInfo(name = "favorite")
     var isFavorite: Boolean
 
-): Parcelable
+) : Parcelable

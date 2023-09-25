@@ -10,13 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubuser_.R
-import com.example.githubuser_.setting_preference.SettingPreference
 import com.example.githubuser_.setting_preference.SettingViewModel
-import com.example.githubuser_.setting_preference.SettingViewModelFactory
 import com.example.githubuser_.setting_preference.dataStore
+import com.example.githubuser_.viewModel.ViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
+
+    private lateinit var setting: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -36,11 +38,9 @@ class SplashScreen : AppCompatActivity() {
             )
         }
 
-        val pref = SettingPreference.getInstance(application.dataStore)
-        val settingViewModel = ViewModelProvider(
-            this,
-            SettingViewModelFactory(pref)
-        )[SettingViewModel::class.java]
+        setting = ViewModelFactory.getInstance(this, dataStore)
+        val settingViewModel =
+            ViewModelProvider(this, setting)[SettingViewModel::class.java]
 
         settingViewModel.getThemeSetting().observe(this) { isDarkMode ->
             if (isDarkMode) {

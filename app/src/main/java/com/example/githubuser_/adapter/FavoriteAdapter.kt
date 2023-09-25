@@ -16,6 +16,9 @@ import com.example.githubuser_.database.FavoriteDatabase
 import com.example.githubuser_.database.UserEntity
 import com.example.githubuser_.databinding.ItemUserBinding
 import com.example.githubuser_.ui.DetailActivity
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FavoriteAdapter(
     private val activity: Activity
@@ -24,7 +27,7 @@ class FavoriteAdapter(
 
     private lateinit var favoriteDatabase: FavoriteDao
 
-    inner class MyViewHolder(private val binding: ItemUserBinding) :
+    inner class MyViewHolder(val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: UserEntity) {
             with(binding) {
@@ -33,13 +36,7 @@ class FavoriteAdapter(
                     .load(favorite.avatarUrl)
                     .into(ivImageProfile)
                     .clearOnDetach()
-                btnDeleteFavorite.visibility = View.VISIBLE
-                btnDeleteFavorite.setOnClickListener {
-                    favoriteDatabase = FavoriteDatabase.getDatabase(activity).favoriteDao()
-                    favoriteDatabase.delete(favorite.username.toString())
-                    Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT)
-                        .show()
-                }
+
                 itemView.setOnClickListener {
                     val intentDetail = Intent(itemView.context, DetailActivity::class.java)
                     intentDetail.putExtra(DetailActivity.KEY_DATA, favorite.username)
@@ -54,9 +51,21 @@ class FavoriteAdapter(
         return MyViewHolder(binding)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val favorite = getItem(position)
         holder.bind(favorite)
+
+        val btnDelete = holder.binding.btnDeleteFavorite
+        btnDelete.visibility = View.VISIBLE
+        btnDelete.setOnClickListener {
+            favoriteDatabase = FavoriteDatabase.getDatabase(activity).favoriteDao()
+            GlobalScope.launch {
+                favoriteDatabase.delete(favorite.username.toString())
+            }
+            Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 
     companion object {
