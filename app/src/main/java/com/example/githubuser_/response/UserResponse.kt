@@ -20,30 +20,28 @@ data class UserResponse(
 @Parcelize
 data class ItemsItem(
 
-    @field:SerializedName("repos_url")
-    val reposUrl: String? = null,
-
-    @field:SerializedName("following_url")
-    val followingUrl: String? = null,
+    @field:SerializedName("bio")
+    val bio: String?,
 
     @field:SerializedName("login")
-    val login: String? = null,
+    val login: String?,
 
-    @field:SerializedName("followers_url")
-    val followersUrl: String? = null,
+    @field:SerializedName("public_repos")
+    val publicRepos: Int?,
 
-    @field:SerializedName("url")
-    val url: String? = null,
+    @field:SerializedName("followers")
+    val followers: Int?,
 
     @field:SerializedName("avatar_url")
-    val avatarUrl: String? = null,
+    val avatarUrl: String?,
 
     @field:SerializedName("html_url")
-    val htmlUrl: String? = null,
+    val htmlUrl: String?,
 
-    @field:SerializedName("id")
-    val id: Int? = null,
+    @field:SerializedName("following")
+    val following: Int?,
 
-    @field:SerializedName("organizations_url")
-    val organizationsUrl: String? = null
-) : Parcelable
+    @field:SerializedName("name")
+    val name: String?,
+
+    ) : Parcelable

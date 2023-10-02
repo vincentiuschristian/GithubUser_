@@ -3,22 +3,22 @@ package com.example.githubuser_.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubuser_.database.UserEntity
-import com.example.githubuser_.repository.FavoriteRepository
+import com.example.githubuser_.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class FavoriteViewModel(private val favoriteRepository: FavoriteRepository) : ViewModel() {
+class FavoriteViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    fun getFavoriteUser() = favoriteRepository.getFavoriteUser()
+    fun getFavoriteUser() = userRepository.getFavoriteUser()
 
     fun saveFavorite(favorite: UserEntity) {
         viewModelScope.launch {
-            favoriteRepository.setFavorite(favorite, true)
+            userRepository.setFavorite(favorite, true)
         }
     }
 
     fun deleteFavorite(username: String) {
         viewModelScope.launch {
-            favoriteRepository.deleteFavorite(username)
+            userRepository.deleteFavorite(username)
         }
     }
 

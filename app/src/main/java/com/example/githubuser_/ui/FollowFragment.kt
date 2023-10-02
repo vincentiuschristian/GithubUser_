@@ -12,19 +12,21 @@ import com.example.githubuser_.databinding.FragmentFollowBinding
 import com.example.githubuser_.response.ItemsItem
 import com.example.githubuser_.viewModel.DetailViewModel.Companion.username
 import com.example.githubuser_.viewModel.FollowViewModel
+import com.example.githubuser_.viewModel.ViewModelFactory
 
 class FollowFragment : Fragment() {
 
     private lateinit var _binding: FragmentFollowBinding
     private val binding get() = _binding
 
-    private val followerViewModel: FollowViewModel by viewModels()
+    private val followerViewModel: FollowViewModel by viewModels {
+        ViewModelFactory.getInstance(requireActivity().application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return _binding.root
     }
@@ -53,8 +55,11 @@ class FollowFragment : Fragment() {
     private fun getFollowers() {
         followerViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
+            if (it == true) {
+                binding.textTest.visibility = View.GONE
+            }
         }
-        followerViewModel.getFollowersData(username)
+        followerViewModel.getFollower(username)
         followerViewModel.listFollowers.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 setUserData(user)
@@ -65,8 +70,11 @@ class FollowFragment : Fragment() {
     private fun getFollowing() {
         followerViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
+            if (it == true) {
+                binding.textTest.visibility = View.GONE
+            }
         }
-        followerViewModel.getFollowingData(username)
+        followerViewModel.getFollowing(username)
         followerViewModel.listFollowing.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 setUserData(user)
@@ -76,20 +84,21 @@ class FollowFragment : Fragment() {
 
     private fun setUserData(data: List<ItemsItem>) {
         if (data.isEmpty()) {
-            binding.rvItemFollower.visibility = View.INVISIBLE
+            binding.rvItemFollower.visibility = View.GONE
             binding.textTest.visibility = View.VISIBLE
         } else {
             binding.rvItemFollower.visibility = View.VISIBLE
-            binding.textTest.visibility = View.INVISIBLE
+            binding.textTest.visibility = View.GONE
             showLoading(false)
             val adapter = UserAdapter()
             adapter.submitList(data)
+            binding.rvItemFollower.setHasFixedSize(true)
             binding.rvItemFollower.adapter = adapter
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {

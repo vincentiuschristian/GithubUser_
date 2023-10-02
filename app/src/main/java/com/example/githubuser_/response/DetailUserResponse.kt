@@ -31,4 +31,4 @@ data class DetailUserResponse(
     @field:SerializedName("name")
     val name: String?,
 
-) : Parcelable
+    ) : Parcelable

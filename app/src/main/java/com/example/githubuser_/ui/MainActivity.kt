@@ -1,6 +1,5 @@
 package com.example.githubuser_.ui
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,17 +7,21 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser_.R
 import com.example.githubuser_.adapter.UserAdapter
 import com.example.githubuser_.databinding.ActivityMainBinding
 import com.example.githubuser_.response.ItemsItem
 import com.example.githubuser_.viewModel.MainViewModel
+import com.example.githubuser_.viewModel.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels {
+        ViewModelFactory.getInstance(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +40,13 @@ class MainActivity : AppCompatActivity() {
         binding.rvItem.layoutManager = layoutManager
         binding.rvItem.setHasFixedSize(true)
 
-        mainViewModel.dataUser.observe(this) { data ->
+
+        mainViewModel.dataUser.observe(this){data ->
             setUserData(data)
         }
 
         mainViewModel.isLoading.observe(this) { loading ->
-            showLoading(loading)
+            binding.progressBar.isVisible = loading
         }
 
         with(binding) {
@@ -52,29 +56,24 @@ class MainActivity : AppCompatActivity() {
                 .setOnEditorActionListener { _, _, _ ->
                     searchBar.text = searchView.text
                     searchView.hide()
-                    mainViewModel.getDataUser(searchView.text.toString())
+                    //      mainViewModel.getDataUser(searchView.text.toString())
+                    mainViewModel.getUser(searchView.text.toString())
                     false
                 }
         }
     }
 
     private fun setUserData(data: List<ItemsItem>?) {
-        if (data != null) {
-            if (data.isEmpty()) {
-                binding.tvUserNotFound.visibility = View.VISIBLE
-                binding.rvItem.visibility = View.INVISIBLE
-            } else {
-                binding.rvItem.visibility = View.VISIBLE
-                val adapter = UserAdapter()
-                adapter.submitList(data)
-                binding.rvItem.adapter = adapter
-                binding.tvUserNotFound.visibility = View.INVISIBLE
-            }
+        if (data.isNullOrEmpty()) {
+            binding.rvItem.visibility = View.INVISIBLE
+            binding.tvUserNotFound.visibility = View.VISIBLE
+        } else {
+            val adapter = UserAdapter()
+            adapter.submitList(data)
+            binding.rvItem.setHasFixedSize(true)
+            binding.rvItem.adapter = adapter
+            binding.tvUserNotFound.visibility = View.INVISIBLE
         }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

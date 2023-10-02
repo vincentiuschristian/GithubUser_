@@ -61,7 +61,7 @@ class FavoriteAdapter(
         btnDelete.setOnClickListener {
             favoriteDatabase = FavoriteDatabase.getDatabase(activity).favoriteDao()
             GlobalScope.launch {
-                favoriteDatabase.delete(favorite.username.toString())
+                favoriteDatabase.delete(favorite.username)
             }
             Toast.makeText(activity, "${favorite.username} removed", Toast.LENGTH_SHORT)
                 .show()

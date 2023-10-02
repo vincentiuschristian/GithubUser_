@@ -15,7 +15,7 @@ data class UserEntity(
     var id: Int = 0,
 
     @ColumnInfo(name = "username")
-    var username: String? = null,
+    var username: String,
 
     @ColumnInfo(name = "avatarUrl")
     var avatarUrl: String? = null,

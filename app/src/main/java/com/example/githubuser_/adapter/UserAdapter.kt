@@ -3,6 +3,7 @@ package com.example.githubuser_.adapter
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +14,23 @@ import com.example.githubuser_.ui.DetailActivity
 
 class UserAdapter : ListAdapter<ItemsItem, UserAdapter.UserViewHolder>(DIFF_CALLBACK) {
 
-    class UserViewHolder(private val binding: ItemUserBinding) :
+    inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private fun ImageView.loadImage(url: String?) {
+            Glide.with(this.context)
+                .load(url)
+                .centerCrop()
+                .into(this)
+                .clearOnDetach()
+        }
 
         fun bind(data: ItemsItem) {
-            binding.tvUsername.text = data.login
-            Glide.with(binding.root)
-                .load(data.avatarUrl)
-                .into(binding.ivImageProfile)
-                .clearOnDetach()
+            binding.apply {
+                tvUsername.text = data.login
+                ivImageProfile.loadImage(
+                    url = data.avatarUrl
+                )
+            }
         }
     }
 

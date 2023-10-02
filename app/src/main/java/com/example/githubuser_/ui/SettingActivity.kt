@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.githubuser_.R
 import com.example.githubuser_.databinding.ActivitySettingBinding
 import com.example.githubuser_.setting_preference.SettingViewModel
-import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.ViewModelFactory
 
 class SettingActivity : AppCompatActivity() {
@@ -28,7 +27,7 @@ class SettingActivity : AppCompatActivity() {
 
         val switchTheme = binding.switchTheme
 
-        setting = ViewModelFactory.getInstance(this, dataStore)
+        setting = ViewModelFactory.getInstance(application)
         val settingViewModel =
             ViewModelProvider(this, setting)[SettingViewModel::class.java]
 

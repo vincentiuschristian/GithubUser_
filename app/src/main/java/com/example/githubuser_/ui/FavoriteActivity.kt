@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser_.R
 import com.example.githubuser_.adapter.FavoriteAdapter
 import com.example.githubuser_.databinding.ActivityFavoriteBinding
-import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.FavoriteViewModel
 import com.example.githubuser_.viewModel.ViewModelFactory
 
@@ -20,7 +19,7 @@ class FavoriteActivity : AppCompatActivity() {
     private lateinit var favoriteAdapter: FavoriteAdapter
 
     private val favoriteViewModel: FavoriteViewModel by viewModels {
-        ViewModelFactory.getInstance(this, dataStore)
+        ViewModelFactory.getInstance(application)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,15 +45,18 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun showDataFavorite() {
         favoriteViewModel.getFavoriteUser().observe(this) { users ->
-            if (!users.isNullOrEmpty()) {
-                binding?.tvTidakAdaFavorite?.visibility = View.GONE
-                binding?.rvItemFavorite?.visibility = View.VISIBLE
-                favoriteAdapter.submitList(users)
-            } else {
-                binding?.progressBar?.visibility = View.VISIBLE
-                binding?.rvItemFavorite?.visibility = View.INVISIBLE
-                binding?.tvTidakAdaFavorite?.visibility = View.VISIBLE
+            binding?.apply {
+                if (!users.isNullOrEmpty()) {
+                    tvTidakAdaFavorite.visibility = View.GONE
+                    rvItemFavorite.visibility = View.VISIBLE
+                    favoriteAdapter.submitList(users)
+                } else {
+                    progressBar.visibility = View.VISIBLE
+                    rvItemFavorite.visibility = View.GONE
+                    tvTidakAdaFavorite.visibility = View.VISIBLE
+                }
             }
+
         }
     }
 

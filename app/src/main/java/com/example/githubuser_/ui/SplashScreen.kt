@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubuser_.R
 import com.example.githubuser_.setting_preference.SettingViewModel
-import com.example.githubuser_.setting_preference.dataStore
 import com.example.githubuser_.viewModel.ViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
@@ -23,12 +22,14 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        val delay = 1000L
+
         supportActionBar?.hide()
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this@SplashScreen, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000)
+        }, delay)
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -38,7 +39,7 @@ class SplashScreen : AppCompatActivity() {
             )
         }
 
-        setting = ViewModelFactory.getInstance(this, dataStore)
+        setting = ViewModelFactory.getInstance(application)
         val settingViewModel =
             ViewModelProvider(this, setting)[SettingViewModel::class.java]
 
