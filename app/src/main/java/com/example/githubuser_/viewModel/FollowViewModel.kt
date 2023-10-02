@@ -34,7 +34,9 @@ class FollowViewModel(private val userRepository: UserRepository) : ViewModel() 
                     _isLoading.value = false
                 }
 
-                else -> {}
+                is Result.Empty -> {
+                    _isLoading.value = false
+                }
             }
         }
     }
