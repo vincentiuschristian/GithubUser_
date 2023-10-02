@@ -17,6 +17,7 @@ import com.example.githubuser_.database.FavoriteDao
 import com.example.githubuser_.database.FavoriteDatabase
 import com.example.githubuser_.database.UserEntity
 import com.example.githubuser_.databinding.ActivityDetailBinding
+import com.example.githubuser_.response.DetailUserResponse
 import com.example.githubuser_.viewModel.DetailViewModel
 import com.example.githubuser_.viewModel.DetailViewModel.Companion.username
 import com.example.githubuser_.viewModel.FavoriteViewModel
@@ -27,24 +28,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private val detailViewModel: DetailViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels {
+        ViewModelFactory.getInstance(application)
+    }
     private val favoriteViewModel: FavoriteViewModel by viewModels {
-        ViewModelFactory.getInstance(applicationContext)
+        ViewModelFactory.getInstance(application)
     }
     private lateinit var database: FavoriteDao
 
-    //   private var username = ""
     private var avatar = ""
-
-    companion object {
-        const val KEY_DATA = "key_data"
-
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text1,
-            R.string.tab_text2,
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,39 +58,23 @@ class DetailActivity : AppCompatActivity() {
 
         username = intent.getStringExtra(KEY_DATA).toString()
 
-        detailViewModel.detailUser.observe(this) { data ->
-            avatar = data.avatarUrl.toString()
-            if (data != null) {
-                binding.apply {
-                    tvUsernameDetail.text = data.login
-                    tvName.text = data.name
-                    tvBio.text = data.bio
-                    tvFollowerDetail.text =
-                        resources.getString(R.string.followers, data.followers.toString())
-                    tvFollowingDetail.text =
-                        resources.getString(R.string.following, data.following.toString())
-                    tvRepositories.text =
-                        resources.getString(R.string.repositories, data.publicRepos.toString())
-                    Glide.with(root.context)
-                        .load(data.avatarUrl)
-                        .into(ivProfileDetail)
-                }
-            }
-        }
-
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
         binding.fabShare.setOnClickListener {
-            detailViewModel.detailUser.observe(this){
-                val githubUrl = it.htmlUrl.toString()
+            detailViewModel.detailUser.observe(this) {
+                val githubUrl = it?.htmlUrl.toString()
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
                 intent.putExtra(Intent.EXTRA_TEXT, githubUrl)
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "Share to: "))
             }
+        }
+
+        detailViewModel.detailUser.observe(this) { data ->
+            setUserDetail(data)
         }
 
         binding.fabFavorite.setOnClickListener {
@@ -122,6 +98,25 @@ class DetailActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         isFavorite()
+    }
+
+    private fun setUserDetail(data: DetailUserResponse?) {
+        avatar = data?.avatarUrl.toString()
+        binding.apply {
+            progressBar.visibility = View.GONE
+            tvUsernameDetail.text = data?.login
+            tvName.text = data?.name
+            tvBio.text = data?.bio
+            tvFollowerDetail.text =
+                resources.getString(R.string.followers, data?.followers.toString())
+            tvFollowingDetail.text =
+                resources.getString(R.string.following, data?.following.toString())
+            tvRepositories.text =
+                resources.getString(R.string.repositories, data?.publicRepos.toString())
+            Glide.with(root.context)
+                .load(data?.avatarUrl)
+                .into(ivProfileDetail)
+        }
     }
 
     private fun isFavorite() {
@@ -173,4 +168,15 @@ class DetailActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
+    companion object {
+        const val KEY_DATA = "key_data"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text1,
+            R.string.tab_text2,
+        )
+    }
+
 }
+

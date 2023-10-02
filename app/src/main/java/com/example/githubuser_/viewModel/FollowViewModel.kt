@@ -1,16 +1,13 @@
 package com.example.githubuser_.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.githubuser_.repository.Result
+import com.example.githubuser_.repository.UserRepository
 import com.example.githubuser_.response.ItemsItem
-import com.example.githubuser_.retrofit.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class FollowViewModel : ViewModel() {
+class FollowViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _listFollowers = MutableLiveData<List<ItemsItem>?>()
     val listFollowers: MutableLiveData<List<ItemsItem>?> = _listFollowers
@@ -21,53 +18,47 @@ class FollowViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun getFollowersData(username: String) {
-        _isLoading.value = true
-        val config = ApiConfig.getApiService().getListFollowers(username)
-        config.enqueue(object : Callback<List<ItemsItem>> {
-            override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _listFollowers.value = responseBody
-                    } else {
-                        Log.e(DetailViewModel.TAG, "onFailure : ${response.body()}")
-                    }
+    fun getFollower(username: String) {
+        userRepository.getFollower(username).observeForever { result ->
+            when (result) {
+                is Result.Loading -> {
+                    _isLoading.value = true
                 }
-            }
 
-            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
-                Log.d(DetailViewModel.TAG, "onFailure: ${t.message}")
+                is Result.Success -> {
+                    _isLoading.value = false
+                    _listFollowers.value = result.data
+                }
+
+                is Result.Error -> {
+                    _isLoading.value = false
+                }
+
+                else -> {}
             }
-        })
+        }
     }
 
-    fun getFollowingData(username: String) {
-        _isLoading.value = true
-        val config = ApiConfig.getApiService().getListFollowing(username)
-        config.enqueue(object : Callback<List<ItemsItem>> {
-            override fun onResponse(
-                call: Call<List<ItemsItem>>,
-                response: Response<List<ItemsItem>>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _listFollowing.value = responseBody
-                    } else {
-                        Log.e(DetailViewModel.TAG, "onFailure : ${response.body()}")
-                    }
+    fun getFollowing(username: String) {
+        userRepository.getFollowing(username).observeForever { result ->
+            when (result) {
+                is Result.Loading -> {
+                    _isLoading.value = true
+                }
+
+                is Result.Success -> {
+                    _isLoading.value = false
+                    _listFollowing.value = result.data
+                }
+
+                is Result.Error -> {
+                    _isLoading.value = false
+                }
+
+                is Result.Empty -> {
+                    _isLoading.value = false
                 }
             }
-
-            override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable) {
-                Log.d(DetailViewModel.TAG, "onFailure: ${t.message}")
-            }
-        })
+        }
     }
 }

@@ -7,14 +7,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.example.githubuser_.R
 import com.example.githubuser_.databinding.ActivitySettingBinding
-import com.example.githubuser_.setting_preference.SettingPreference
 import com.example.githubuser_.setting_preference.SettingViewModel
-import com.example.githubuser_.setting_preference.SettingViewModelFactory
-import com.example.githubuser_.setting_preference.dataStore
+import com.example.githubuser_.viewModel.ViewModelFactory
 
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingBinding
+    private lateinit var setting: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +27,9 @@ class SettingActivity : AppCompatActivity() {
 
         val switchTheme = binding.switchTheme
 
-        val pref = SettingPreference.getInstance(application.dataStore)
+        setting = ViewModelFactory.getInstance(application)
         val settingViewModel =
-            ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
+            ViewModelProvider(this, setting)[SettingViewModel::class.java]
 
         settingViewModel.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {

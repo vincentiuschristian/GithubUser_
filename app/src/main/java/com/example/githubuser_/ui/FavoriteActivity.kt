@@ -45,14 +45,18 @@ class FavoriteActivity : AppCompatActivity() {
 
     private fun showDataFavorite() {
         favoriteViewModel.getFavoriteUser().observe(this) { users ->
-            if (users.isEmpty()) {
-                binding?.rvItemFavorite?.visibility = View.INVISIBLE
-                binding?.tvTidakAdaFavorite?.visibility = View.VISIBLE
-            } else {
-                binding?.rvItemFavorite?.visibility = View.VISIBLE
-                binding?.tvTidakAdaFavorite?.visibility = View.GONE
-                favoriteAdapter.submitList(users)
+            binding?.apply {
+                if (!users.isNullOrEmpty()) {
+                    tvTidakAdaFavorite.visibility = View.GONE
+                    rvItemFavorite.visibility = View.VISIBLE
+                    favoriteAdapter.submitList(users)
+                } else {
+                    progressBar.visibility = View.VISIBLE
+                    rvItemFavorite.visibility = View.GONE
+                    tvTidakAdaFavorite.visibility = View.VISIBLE
+                }
             }
+
         }
     }
 
